@@ -1,0 +1,18 @@
+# This configuration defines how builders are applied to your package.
+
+builders:
+  json_class_builder:
+    import: "package:json_class_generator/json_class_generator.dart"
+    builder_factories: ["jsonClassBuilder"]
+    build_extensions: {".dart": [".json_class.g.dart"]}
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
+
+targets:
+  $default:
+    builders:
+      json_class_generator|json_class_builder:
+        enabled: true
+        generate_for:
+          include: ["lib/**/*.dart"] # Specify the directories and files to include
